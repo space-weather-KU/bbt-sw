@@ -129,7 +129,7 @@ optimizer.setup(model)
 
 
 if os.path.exists(model_filename) and os.path.exists(state_filename):
-    print('Load model from', model_filename, state_filename)
+    print 'Load model from', model_filename, state_filename
     serializers.load_npz(model_filename, model)
     serializers.load_npz(state_filename, optimizer)
 
@@ -143,9 +143,10 @@ def learn():
     e = 0
     while True:
         e+=1
-        print e
+        print e,
         imgs, anss = load_image()
         optimizer.update(model, imgs, anss)
+        print model.loss.data
 
         write_image('test.png', imgs.data[0], anss.data[0])
 
