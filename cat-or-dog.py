@@ -20,8 +20,8 @@ from chainer import serializers
 batchsize = 10
 imgsize = 64
 
-model_filename = 'cat-or-dog.model'
-state_filename = 'cat-or-dog.state'
+model_filename = 'save.model'
+state_filename = 'save.state'
 
 
 def read_command(cmd):
@@ -156,9 +156,22 @@ def learn():
 
 def test():
     fns = sys.argv[1:]
-    imgs, anss = load_image(fns)
-    model(imgs,anss)
-    print model.y.data
+    for fn in fns:
+        imgs, anss = load_image(11*[fn])
+        model(imgs,anss)
+        count_cat = 0
+        count_dog = 0
+        for c,d in model.y.data:
+            if c>d:
+                count_cat += 1
+            else:
+                count_dog += 1
+        if count_cat > count_dog:
+            result = "cat"
+        else:
+            result = "dog"
+
+        print fn, " is a ", result
 
 if len(sys.argv) > 1:
     test()
