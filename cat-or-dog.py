@@ -20,8 +20,8 @@ from chainer import serializers
 batchsize = 10
 imgsize = 64
 
-model_filename = 'save.model'
-state_filename = 'save.state'
+model_filename = 'model.save'
+state_filename = 'state.save'
 
 
 def read_command(cmd):
@@ -31,14 +31,8 @@ def read_command(cmd):
 catfns = read_command('ls PetImages/Cat/*').split()
 dogfns = read_command('ls PetImages/Dog/*').split()
 
+# A Cat-or-Dog classifier.
 class CatDog(chainer.Chain):
-
-    """An example of multi-layer perceptron for MNIST dataset.
-
-    This is a very simple implementation of an MLP. You can modify this code to
-    build your own neural net.
-
-    """
     def __init__(self):
         super(CatDog, self).__init__(
             l1=L.Convolution2D(3,64,3,stride=2),
@@ -54,7 +48,8 @@ class CatDog(chainer.Chain):
         return F.reshape(self.l4(h3), (x.data.shape[0],2))
 
 
-
+# If fns = None, load some training images.
+# If fns is not None, load the specified images.
 def load_image(fns = None):
     if fns is not None:
         my_batchsize = len(fns)
@@ -66,6 +61,7 @@ def load_image(fns = None):
 
 
     for j in range(my_batchsize):
+        # Decide whether we learn a cat or dog
         ans = np.random.randint(2)
         img = None
         if fns is not None:
@@ -86,11 +82,11 @@ def load_image(fns = None):
                 except:
                     continue
 
+        # Apply some random rotation and scaling
         img=img.rotate(np.random.random()*20.0-10.0, Image.BICUBIC)
         w,h=img.size
         scale = 80.0/min(w,h)*(1.0+0.2*np.random.random())
         img=img.resize((int(w*scale),int(h*scale)),Image.BICUBIC)
-
         img = np.asarray(img).astype(np.float32).transpose(2, 0, 1)
 
         # offset the image about the center of the image.
@@ -107,7 +103,7 @@ def load_image(fns = None):
         ret_ans[j] = ans
     return (chainer.Variable(ret), chainer.Variable(ret_ans))
 
-
+# Write a image to a file
 def write_image(fn, img, ans):
     pylab.rcParams['figure.figsize'] = (6.4,6.4)
     pylab.clf()
@@ -120,25 +116,25 @@ def write_image(fn, img, ans):
 
 
 
-
-
-
+# Prepare the classifier model and the optimizer
 model = L.Classifier(CatDog())
 optimizer = optimizers.Adam()
 optimizer.setup(model)
 
-
+# If the save files are found, continue from the previous learning state.
 if os.path.exists(model_filename) and os.path.exists(state_filename):
     print 'Load model from', model_filename, state_filename
     serializers.load_npz(model_filename, model)
     serializers.load_npz(state_filename, optimizer)
 
+# Save the learning state to files
 def save():
     print('save the model')
     serializers.save_npz(model_filename, model)
     print('save the optimizer')
     serializers.save_npz(state_filename, optimizer)
 
+# Perform Machine Learning
 def learn():
     e = 0
     while True:
@@ -154,6 +150,7 @@ def learn():
             save()
     save()
 
+# Classify the given images
 def test():
     fns = sys.argv[1:]
     for fn in fns:
@@ -173,6 +170,9 @@ def test():
 
         print fn, " is a ", result
 
+# If some filenames are given to command line arguments,
+# perform classification.
+# Otherwise, perform learning.
 if len(sys.argv) > 1:
     test()
 else:
