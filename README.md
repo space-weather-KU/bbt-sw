@@ -7,6 +7,32 @@
 以下の説明で、`$`で始まる行は、キーボードから入力するコマンドを表します。
 先頭の`$`は除いて、のこりを入力してください。
 
+
+### プログラミング言語Pythonとライブラリのインストール
+
+- Windows
+    - Python for Windows インストールメモ http://www.aoki.ecei.tohoku.ac.jp/~ito/python_windows.html
+    - WindowsにChainerを入れる方法 http://qiita.com/okuta/items/f985b9da6de33a016a75
+- Mac OSX
+    - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
+    
+python, pipをインストールしてください。そして、
+
+```
+$ pip install --user chainer 
+```
+
+を実行して、chainer (1.8以降)をインストールして下さい。
+
+他に、matplotlib, PILも必要なのでインストールします。
+```
+$ pip install --user matplotlib
+$ pip install --user PIL
+```
+
+
+
+### スクリプト一式の入手
 gitをインストールし、コマンド
 
 ```
@@ -23,14 +49,6 @@ http://research.microsoft.com/en-us/projects/asirra/corpus.aspx
  PetImages/Dogフォルダがあるようにしてください。
 
 
-
-python, pipをインストールしてください。そして、コマンド
-
-```
-$ pip install --user chainer matplotlib
-```
-
-を実行して、chainer (1.8以降)をインストールして下さい。コンピュータ室の環境では、上記のコマンドで入るはずです。
 
 
 
