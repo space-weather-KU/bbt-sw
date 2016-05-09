@@ -36,6 +36,12 @@ $ pip install --user chainer
 
 ## 機械学習の実行
 
+- プログラミング言語 python の処理系
+- pythonで書かれた深層学習ライブラリ chainer
+- 学習につかうための犬と猫の画像のデータセット
+
+が準備できました。
+
 この状態で、
 ```
 $ ./cat-or-dog.py
