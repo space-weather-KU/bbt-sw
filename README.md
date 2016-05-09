@@ -10,7 +10,7 @@
 gitをインストールし、コマンド
 
 ```
-$ git clone git@github.com:space-weather-KU/bbt-sw.git
+$ git clone https://github.com/space-weather-KU/bbt-sw.git
 ```
 
 を実行するか、あるいはこのページの上の方にある"Download ZIP"ボタンからファイル一式を手に入れてください。
