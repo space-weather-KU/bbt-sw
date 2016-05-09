@@ -27,7 +27,7 @@ http://research.microsoft.com/en-us/projects/asirra/corpus.aspx
 python, pipをインストールしてください。そして、コマンド
 
 ```
-$ pip install --user chainer
+$ pip install --user chainer matplotlib
 ```
 
 を実行して、chainer (1.8以降)をインストールして下さい。コンピュータ室の環境では、上記のコマンドで入るはずです。
