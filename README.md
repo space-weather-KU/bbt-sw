@@ -19,7 +19,7 @@
     - 色々ありますし、Web上の資料も充実していますが、１つ挙げるなら[柴田淳(著)「みんなのPython」 第3版] (http://amzn.to/1QlWqGR) がおすすめです。
     - その他、参考資料: https://github.com/space-weather-KU/bbt-sw/blob/master/%E8%B3%87%E6%96%99.md
 
-python, pipをインストールしてください。そして、
+まずは、python, pipをインストールしてください。そして、
 
 ```
 $ pip install --user chainer
