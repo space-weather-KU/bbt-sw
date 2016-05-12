@@ -12,14 +12,14 @@
 
 - Windows
     - Python for Windows インストールメモ http://www.aoki.ecei.tohoku.ac.jp/~ito/python_windows.html
-    - WindowsにChainerを入れる方法 http://qiita.com/okuta/items/f985b9da6de33a016a75
+    - 坂上さんによる一連の準備手順まとめ https://github.com/space-weather-KU/bbt-sw/blob/master/setup-on-windows7.md
 - Mac OSX
     - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
-    
+
 python, pipをインストールしてください。そして、
 
 ```
-$ pip install --user chainer 
+$ pip install --user chainer
 ```
 
 を実行して、chainer (1.8以降)をインストールして下さい。
