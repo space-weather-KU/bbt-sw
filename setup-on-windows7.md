@@ -10,7 +10,7 @@
 3)Chainerをインストール
 
 参照: http://soysoftware.sakura.ne.jp/archives/561
-	　
+
 1. Microsoft Visual C++ Compiler for Python 2.7をインストール
 2. C:\Python27\Scripts で pip install --user chainer
 
