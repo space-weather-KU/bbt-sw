@@ -15,6 +15,9 @@
     - 坂上さんによる一連の準備手順まとめ https://github.com/space-weather-KU/bbt-sw/blob/master/setup-on-windows7.md
 - Mac OSX
     - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
+- Pythonの教科書
+    - 色々ありますし、Web上の資料も充実していますが、１つ挙げるなら柴田淳(著)「みんなのPython」 第3版 http://amzn.to/1QlWqGR がおすすめです。
+    - その他、参考資料: https://github.com/space-weather-KU/bbt-sw/blob/master/%E8%B3%87%E6%96%99.md
 
 python, pipをインストールしてください。そして、
 
