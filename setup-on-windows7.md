@@ -8,6 +8,7 @@
 参照: http://typea.info/tips/wiki.cgi?page=Python+Windows%A4%CBPIP%A4%F2%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB#p0
 
 3)Chainerをインストール
+
 参照: http://soysoftware.sakura.ne.jp/archives/561
 	　
 1. Microsoft Visual C++ Compiler for Python 2.7をインストール
