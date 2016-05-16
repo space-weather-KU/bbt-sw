@@ -7,10 +7,39 @@
 以下の説明で、`$`で始まる行は、キーボードから入力するコマンドを表します。
 先頭の`$`は除いて、のこりを入力してください。
 
+
+### プログラミング言語Pythonとライブラリのインストール
+
+- Windows
+    - Python for Windows インストールメモ http://www.aoki.ecei.tohoku.ac.jp/~ito/python_windows.html
+    - 坂上さんによる一連の準備手順まとめ https://github.com/space-weather-KU/bbt-sw/blob/master/setup-on-windows7.md
+- Mac OSX
+    - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
+- Pythonの教科書
+    - 色々ありますし、Web上の資料も充実していますが、１つ挙げるなら[柴田淳(著)「みんなのPython」 第3版] (http://amzn.to/1QlWqGR) がおすすめです。
+    - その他、参考資料: https://github.com/space-weather-KU/bbt-sw/blob/master/%E8%B3%87%E6%96%99.md
+
+まずは、python, pipをインストールしてください。そして、
+
+```
+$ pip install --user chainer
+```
+
+を実行して、chainer (1.8以降)をインストールして下さい。
+
+他に、matplotlib, PILも必要なのでインストールします。
+```
+$ pip install --user matplotlib
+$ pip install --user PIL
+```
+
+
+
+### スクリプト一式の入手
 gitをインストールし、コマンド
 
 ```
-$ git clone git@github.com:space-weather-KU/bbt-sw.git
+$ git clone https://github.com/space-weather-KU/bbt-sw.git
 ```
 
 を実行するか、あるいはこのページの上の方にある"Download ZIP"ボタンからファイル一式を手に入れてください。
@@ -24,14 +53,15 @@ http://research.microsoft.com/en-us/projects/asirra/corpus.aspx
 
 
 
-python, pipをインストールしてください。そして、コマンド
 
-```
-$ pip install --user chainer
-```
 
-を実行して、chainer (1.8以降)をインストールして下さい。コンピュータ室の環境では、上記のコマンドで入るはずです。
+## 機械学習の実行
 
+- プログラミング言語 python の処理系
+- pythonで書かれた深層学習ライブラリ chainer
+- 学習につかうための犬と猫の画像のデータセット
+
+が準備できました。
 
 この状態で、
 ```
@@ -59,8 +89,11 @@ Load model from model.save state.save
 tama.jpg  is a  cat
 ```
 
+## 宇宙天気予報との関係は？
 
+このプログラムを応用して、たとえば「ある時刻の太陽画像」から「２４時間後に起こるフレアのクラス(X,M,C)」を予測したり、「７２時間後までに起こる最大のフレアの規模(W/m^2)」につなげていきます。
 
+他にも、「画像から何かの分類・数値を予測する」という様々な用途に応用できます。
 
 
 # 気になる論文
