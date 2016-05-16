@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import random, sys, subprocess, os.path
+import glob,random, sys, subprocess, os.path
 
 import matplotlib
 matplotlib.use('Agg')
@@ -28,8 +28,9 @@ def read_command(cmd):
     stdout, stderr = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
     return stdout
 
-catfns = read_command('ls PetImages/Cat/*').split()
-dogfns = read_command('ls PetImages/Dog/*').split()
+catfns = glob.glob('PetImages/Cat/*')
+dogfns = glob.glob('ls PetImages/Dog/*')
+
 
 # A Cat-or-Dog classifier.
 class CatDog(chainer.Chain):
