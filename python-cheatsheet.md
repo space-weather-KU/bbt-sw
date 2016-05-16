@@ -1,8 +1,11 @@
 # Pythonをインストールせずに利用する方法
 
-Codecademyがおすすめです。
+オンラインの学習サイトを使いましょう。これらの学習サイトの中には、ブラウザ上でPythonを実行してくれるものがあるので、自分のパソコンにPytohnをインストールしなくても利用できます。
 
-Checkio
+Codecademy https://www.codecademy.com/learn/python がPythonの基礎から１つづつ教えてくれるのでおすすめです。
+Checkio https://checkio.org/
+
+
 
 # Pythonインタプリタの利用
 
