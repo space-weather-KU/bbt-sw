@@ -14,6 +14,7 @@ Pythonの練習 -> https://github.com/space-weather-KU/bbt-sw/blob/master/python
 ### プログラミング言語Pythonとライブラリのインストール
 
 - Windows
+    - Windows上にChainer等々を一番簡単に入れれる方法 http://qiita.com/okuta/items/f985b9da6de33a016a75
     - Python for Windows インストールメモ http://www.aoki.ecei.tohoku.ac.jp/~ito/python_windows.html
     - 坂上さんによる一連の準備手順まとめ https://github.com/space-weather-KU/bbt-sw/blob/master/setup-on-windows7.md
 - Mac OSX
