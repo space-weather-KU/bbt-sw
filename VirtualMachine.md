@@ -15,3 +15,4 @@
 
 user: SpaceWeather  
 pass: bbtsp@ace  
+rootのパスワードも一緒  
