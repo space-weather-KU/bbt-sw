@@ -1,11 +1,15 @@
+# おことわり
+
+この資料は [Python 2.7 Quick Reference Sheet](http://www.astro.up.pt/~sousasag/Python_For_Astronomers/Python_qr.pdf) を参考にしました。
+
 # Pythonをインストールせずに利用する方法
 
 オンラインの学習サイトを使いましょう。これらの学習サイトの中には、ブラウザ上でPythonを実行してくれるものがあるので、自分のパソコンにPytohnをインストールしなくても利用できます。
 
 Codecademy https://www.codecademy.com/learn/python がPythonの基礎から１つづつ教えてくれるのでおすすめです。
-Checkio https://checkio.org/
+Checkio https://checkio.org/ はもうちょっと発展的な課題のプログラムを作っていく感じです。
 
-
+これらの学習サイトは課金するとより多くの演習問題が解禁されたりしますが、個人的にはこれらのサイトに課金する段階に達したなら、かえってPythonの教科書を買ったほうがずっと使えて良いかとは思います。
 
 # Pythonインタプリタの利用
 
@@ -29,6 +33,40 @@ True
 45
 ```
 
+# Help
+
+`dir()`関数をつかうと任意のオブジェクトのメソッドの一覧を見られます。たとえば、`x`という変数名の数のリストを作り、`dir()`を見てみます。
+
+```
+>>> x = [1,4,9]
+>>> x
+[1,4,9]
+>>> dir(x)
+['__add__', ... , 'append', 'count', ... ]
+```
+
+`append`というメソッドがあるようですね。これの`help()`を見てみます。
+
+```
+>>> help(x.append)
+
+Help on built-in function append:
+
+append(...)
+    L.append(object) -- append object to end
+(END)
+```
+
+`append`は、「リストの末尾にオブジェクトを追加する」とあります。試してみましょう。
+
+```
+>>> x.append(16)
+>>> x
+[1, 4, 9, 16]
+>>>
+```
+
+
 # Pythonスクリプトの作成と実行
 
 Pythonのプログラムの拡張子は`.py`です。次の内容を
@@ -44,9 +82,20 @@ print sum(range(1,101))
 1. `python first.py` として、Pythonに実行してもらう。
 1. `chmod 755 first.py`などとしてこのファイルに実行権限を与え、 `./first.py`で実行する。
 
+## Import文
+
+pythonでは、モジュール(他の人が作ったプログラム集)を利用するのに`import`文を使います。
 
 ```
 import numpy
 img = numpy.zeros((5,3), dtype=np.float32)
+print img
+```
+
+次のようにすると、任意の名前でモジュールをインポートできます。
+
+```
+import numpy as np
+img = np.zeros((5,3), dtype=np.float32)
 print img
 ```
