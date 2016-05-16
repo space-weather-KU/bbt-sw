@@ -29,7 +29,7 @@ def read_command(cmd):
     return stdout
 
 catfns = glob.glob('PetImages/Cat/*')
-dogfns = glob.glob('ls PetImages/Dog/*')
+dogfns = glob.glob('PetImages/Dog/*')
 
 
 # A Cat-or-Dog classifier.
