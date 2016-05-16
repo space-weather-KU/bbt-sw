@@ -13,6 +13,6 @@
 3. Virtualboxを立ち上げ、Vine Linuxの仮想ディスクを導入
 4. VirtualboxからVine Linuxを立ち上げ
 
-user: SpaceWeather  
+user: SpaceWeather-KU  
 pass: bbtsp@ace  
 rootのパスワードも一緒  
