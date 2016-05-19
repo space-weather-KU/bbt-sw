@@ -2,7 +2,8 @@
 
 Pythonの練習 -> https://github.com/space-weather-KU/bbt-sw/blob/master/python-cheatsheet.md
 参考文献リスト -> https://github.com/space-weather-KU/bbt-sw/blob/master/%E8%B3%87%E6%96%99.md
-
+Pythonの教科書は色々ありますし、Web上の資料も充実していますが、１つ挙げるなら[柴田淳(著)「みんなのPython」 第3版] (http://amzn.to/1QlWqGR) がおすすめです。
+    
 
 # このチュートリアルの使い方
 
@@ -21,11 +22,11 @@ Pythonの練習 -> https://github.com/space-weather-KU/bbt-sw/blob/master/python
     - 坂上さんによる一連の準備手順まとめ https://github.com/space-weather-KU/bbt-sw/blob/master/setup-on-windows7.md
 - Mac OSX
     - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
-- Pythonの教科書
-    - 色々ありますし、Web上の資料も充実していますが、１つ挙げるなら[柴田淳(著)「みんなのPython」 第3版] (http://amzn.to/1QlWqGR) がおすすめです。
-    - その他、参考資料: https://github.com/space-weather-KU/bbt-sw/blob/master/%E8%B3%87%E6%96%99.md
+- Unix系
+    - 各ディストリビューションのパッケージマネージャ等を使ってください。
 
-まずは、python, pipをインストールしてください。そして、
+### Chainerと必要なライブラリのセットアップ
+まずは、上記手順を参考に, python, pipをインストールしてください。そして、
 
 ```
 $ pip install --user chainer
@@ -37,6 +38,12 @@ $ pip install --user chainer
 ```
 $ pip install --user matplotlib
 $ pip install --user PIL
+```
+
+Windowsでは、PILの代わりにpillowを使うのが良いようです。
+```
+$ pip install --user matplotlib
+$ pip install --user pillow
 ```
 
 
