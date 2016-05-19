@@ -65,8 +65,7 @@ def load_image(fns = None):
         ans = np.random.randint(2)
         img = None
         if fns is not None:
-            with open(fns[j],'r') as fp:
-                img=Image.open(fp).convert('RGB')
+            img=Image.open(fns[j]).convert('RGB')
             ans=-1
         else:
             while True:
