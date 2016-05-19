@@ -1,6 +1,8 @@
 # このチュートリアル以外の資料
 
 Pythonの練習 -> https://github.com/space-weather-KU/bbt-sw/blob/master/python-cheatsheet.md
+参考文献リスト -> https://github.com/space-weather-KU/bbt-sw/blob/master/%E8%B3%87%E6%96%99.md
+
 
 # このチュートリアルの使い方
 
