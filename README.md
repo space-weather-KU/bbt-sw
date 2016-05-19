@@ -1,3 +1,9 @@
+# このチュートリアル以外の資料
+
+Pythonの練習 -> https://github.com/space-weather-KU/bbt-sw/blob/master/python-cheatsheet.md
+参考文献リスト -> https://github.com/space-weather-KU/bbt-sw/blob/master/%E8%B3%87%E6%96%99.md
+Pythonの教科書は色々ありますし、Web上の資料も充実していますが、１つ挙げるなら[柴田淳(著)「みんなのPython」 第3版] (http://amzn.to/1QlWqGR) がおすすめです。
+    
 
 # このチュートリアルの使い方
 
@@ -11,12 +17,16 @@
 ### プログラミング言語Pythonとライブラリのインストール
 
 - Windows
+    - [Windows上にChainer等々を一番簡単に入れれる方法](http://qiita.com/okuta/items/f985b9da6de33a016a75) に従うのがおすすめです。我々はGPUは使いませんので、CUDA関係のインストールは飛ばして大丈夫です。
     - Python for Windows インストールメモ http://www.aoki.ecei.tohoku.ac.jp/~ito/python_windows.html
     - 坂上さんによる一連の準備手順まとめ https://github.com/space-weather-KU/bbt-sw/blob/master/setup-on-windows7.md
 - Mac OSX
     - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
+- Unix系
+    - 各ディストリビューションのパッケージマネージャ等を使ってください。
 
-python, pipをインストールしてください。そして、
+### Chainerと必要なライブラリのセットアップ
+まずは、上記手順を参考に, python, pipをインストールしてください。そして、
 
 ```
 $ pip install --user chainer
@@ -28,6 +38,12 @@ $ pip install --user chainer
 ```
 $ pip install --user matplotlib
 $ pip install --user PIL
+```
+
+Windowsでは、PILの代わりにpillowを使うのが良いようです。
+```
+$ pip install --user matplotlib
+$ pip install --user pillow
 ```
 
 
