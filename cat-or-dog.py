@@ -81,8 +81,7 @@ def load_image(fns = None):
                     else:
                         fn = random.choice(dogfns)
 
-                    with open(fn,'r') as fp:
-                        img=Image.open(fp).convert('RGB')
+                    img=Image.open(fn).convert('RGB')
                     break
                 except:
                     continue
