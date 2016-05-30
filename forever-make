@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while :
+do
+    pandoc  sample-programs.md -o sample-programs.pdf   -V documentclass=ltjarticle --latex-engine=lualatex
+    inotifywait -e modify *.md
+done
