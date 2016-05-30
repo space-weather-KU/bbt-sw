@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import glob,random, sys, subprocess, os.path
 
@@ -17,7 +18,9 @@ import chainer.links as L
 from chainer import optimizers
 from chainer import serializers
 
+# batchsizeは、一度に学習する画像の枚数です
 batchsize = 10
+# 元画像から、このサイズの領域を取り出して学習します
 imgsize = 64
 
 model_filename = 'model.save'
@@ -32,7 +35,7 @@ catfns = glob.glob('PetImages/Cat/*')
 dogfns = glob.glob('PetImages/Dog/*')
 
 
-# A Cat-or-Dog classifier.
+# 猫と犬の画像を分類するニューラルネットワークです。
 class CatDog(chainer.Chain):
     def __init__(self):
         super(CatDog, self).__init__(
@@ -49,8 +52,8 @@ class CatDog(chainer.Chain):
         return F.reshape(self.l4(h3), (x.data.shape[0],2))
 
 
-# If fns = None, load some training images.
-# If fns is not None, load the specified images.
+# fns が None なら、教師データのなかからランダムに画像を読み込みます。
+# fns が None でなければ、指定されたファイル名の画像を読み込みます。
 def load_image(fns = None):
     if fns is not None:
         my_batchsize = len(fns)
@@ -62,15 +65,17 @@ def load_image(fns = None):
 
 
     for j in range(my_batchsize):
-        # Decide whether we learn a cat or dog
+        # 正解ラベルをランダムに選ぶ
         ans = np.random.randint(2)
         img = None
         if fns is not None:
+            # fnsで指定されたファイル名の画像を読み込む
             img=Image.open(fns[j]).convert('RGB')
             ans=-1
         else:
             while True:
                 try:
+                    # 正解ラベルに従って猫、犬のいずれかの画像を読み込む
                     if ans==0:
                         fn = random.choice(catfns)
                     else:
@@ -82,20 +87,20 @@ def load_image(fns = None):
                 except:
                     continue
 
-        # Apply some random rotation and scaling
+        # ランダムな回転と拡大縮小を加える
         img=img.rotate(np.random.random()*20.0-10.0, Image.BICUBIC)
         w,h=img.size
         scale = 80.0/min(w,h)*(1.0+0.2*np.random.random())
         img=img.resize((int(w*scale),int(h*scale)),Image.BICUBIC)
         img = np.asarray(img).astype(np.float32).transpose(2, 0, 1)
 
-        # offset the image about the center of the image.
+        # 画像の中央付近をランダムに切り出す
         oy = (img.shape[1]-imgsize)/2
         ox = (img.shape[2]-imgsize)/2
         oy=oy/2+np.random.randint(oy)
         ox=ox/2+np.random.randint(ox)
 
-        # optionally, mirror the image.
+        # 1/2の確率で、左右を反転させる
         if np.random.randint(2)==0:
             img[:,:,:] = img[:,:,::-1]
 
@@ -103,7 +108,7 @@ def load_image(fns = None):
         ret_ans[j] = ans
     return (chainer.Variable(ret), chainer.Variable(ret_ans))
 
-# Write a image to a file
+# 与えられた画像をファイルに書き出す関数です
 def write_image(fn, img, ans):
     pylab.rcParams['figure.figsize'] = (6.4,6.4)
     pylab.clf()
@@ -115,26 +120,30 @@ def write_image(fn, img, ans):
     pylab.savefig(fn)
 
 
+################################################################
+# メインプログラム開始
+################################################################
 
-# Prepare the classifier model and the optimizer
+
+# ニューラルネットワークによるモデルと、モデルの最適化機を作ります
 model = L.Classifier(CatDog())
 optimizer = optimizers.Adam()
 optimizer.setup(model)
 
-# If the save files are found, continue from the previous learning state.
+# セーブファイルが存在する場合は、セーブファイルから状態を読み込みます
 if os.path.exists(model_filename) and os.path.exists(state_filename):
     print 'Load model from', model_filename, state_filename
     serializers.load_npz(model_filename, model)
     serializers.load_npz(state_filename, optimizer)
 
-# Save the learning state to files
+# 現在までの学習状態をファイルに書き出す関数です。
 def save():
     print('save the model')
     serializers.save_npz(model_filename, model)
     print('save the optimizer')
     serializers.save_npz(state_filename, optimizer)
 
-# Perform Machine Learning
+# 機械学習を行う関数です
 def learn():
     e = 0
     while True:
@@ -150,7 +159,7 @@ def learn():
             save()
     save()
 
-# Classify the given images
+# コマンドライン入力から与えられたファイル名の画像を、猫犬判定する関数です。
 def test():
     fns = sys.argv[1:]
     for fn in fns:
@@ -170,9 +179,9 @@ def test():
 
         print fn, " is a ", result
 
-# If some filenames are given to command line arguments,
-# perform classification.
-# Otherwise, perform learning.
+# コマンドライン引数からファイル名が与えられていれば、
+# test()を呼びます。
+# ファイル名が与えられていなければ学習を行います
 if len(sys.argv) > 1:
     test()
 else:

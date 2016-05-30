@@ -9,11 +9,11 @@ import matplotlib
 matplotlib.use('Agg')
 import pylab
 
-# "PetImages/Cat/0.jpg" というファイルを開いて画像をRGB形式で読み込みます
+# "PetImages/Cat/0.jpg" というファイルを開いて画像を RGB 形式で読み込みます
 img=Image.open("PetImages/Cat/0.jpg").convert('RGB')
 
-# 読み込まれた画像をnumpyの配列変数形式に変換します
-# 3次元配列の3つの添字は、順に色(channel)、y座標、x座標を表します
+# 読み込まれた画像を numpy の配列変数形式に変換します
+# 3次元配列の3つの添字は、順に色 (channel) 、y座標、x座標を表します
 img =np.asarray(img).astype(np.float32).transpose(2, 0, 1)
 
 # 画像データの中身や、配列の寸法を表示します

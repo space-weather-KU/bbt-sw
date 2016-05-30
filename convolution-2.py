@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # convolutionを使って、図形の辺や頂点などの特徴を検出できることを示します
 import numpy as np
