@@ -14,6 +14,7 @@ import pylab
 # 村主へのメモ
 # http://jsoc2.stanford.edu/data/aia/synoptic/を使った方がいいかも？
 def get_image(wavelength,t):
+    # http://jsoc2.stanford.edu/data/aia/synoptic/2016/05/05/H0100/AIA20160505_0108_1600.fits
     url = 'http://sdo.s3-website-us-west-2.amazonaws.com/aia{}/720s-x1024/{:04}/{:02}/{:02}/{:02}{:02}.npz'.format(wavelength, t.year, t.month, t.day, t.hour, t.minute)
     resp = urllib.urlopen(url)
     strio = StringIO.StringIO(resp.read())
