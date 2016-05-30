@@ -1,51 +1,56 @@
 #!/usr/bin/env python
-# module for loading observational data.
+# -*- coding: utf-8 -*-
 
 import astropy.time as time
-import calendar, datetime, os, subprocess
+import calendar, datetime, os, subprocess,urllib
 from astropy.io import fits
 
-def cmd(str):
-    print str
-    subprocess.call(str, shell = True)
 
-def aia193(t):
-    ymd = t.strftime('%Y/%m/%d')
-    data_path = "data/aia193/" + ymd
-    fn=data_path + t.strftime('/%H%M.fits')
+# 時刻tにおける、波長wavelengthの太陽画像を取得します
+# SDO衛星が撮影した元データは http://sdo.gsfc.nasa.gov/data/ にあります。
+def get_aia_image(wavelength,t):
+    try:
+        url = 'http://jsoc2.stanford.edu/data/aia/synoptic/{:04}/{:02}/{:02}/H{:02}00/AIA{:04}{:02}{:02}_{:02}{:02}_{:04}.fits'.format(t.year, t.month, t.day,t.hour, t.year, t.month, t.day, t.hour, t.minute, wavelength)
 
-    if not(os.path.exists(data_path)):
-        cmd('aws s3 sync s3://sdo/aia193/720s/{}/ {}/ --region=us-west-2'.format(ymd,data_path))
-    if not(os.path.exists(fn)):
+        resp = urllib.urlopen(url)
+        strio = StringIO.StringIO(resp.read())
+
+        hdulist=fits.open(strio)
+        hdulist.verify('fix')
+        img=hdulist[1].data
+        exptime=hdulist[1].header['EXPTIME']
+        if (exptime<=0):
+            sys.stderr.write("non-positive EXPTIME\n")
+            return None
+        img = np.where( np.isnan(img), 0.0, img)
+
+        return img / exptime
+    except Exception as e:
+        sys.stderr.write(e.message)
         return None
 
-    h = fits.open(fn)
-    h[1].verify('fix')
-    exptime = h[1].header['EXPTIME']
-    if exptime <=0:
-        print "Warning: non-positive EXPTIME: ", h[1].header['EXPTIME']
-        return None
-
-    # adjust the pixel luminosity with the exposure time.
-    return h[1].data / exptime
 
 global goes_raw_data, goes_loaded_files
 goes_raw_data = {}
 goes_loaded_files = set()
-def goes(t0):
+
+# 時刻t0におけるgoes X線フラックスの値を返します。
+def get_goes_flux(t0):
     global goes_raw_data, goes_loaded_files
     if t0 in goes_raw_data:
         return goes_raw_data[t0]
 
     day31 = calendar.monthrange(t0.year,t0.month)[1]
     fn = 'g15_xrs_1m_{y:4}{m:02}{d:02}_{y:4}{m:02}{d31:02}.csv'.format(y=t0.year, m=t0.month, d=01, d31=day31)
-    localpath = 'data/goes/' + fn
+    localpath = os.path.join('data' , fn)
     if localpath in goes_loaded_files:
         return None
 
     if not(os.path.exists(localpath)):
         url = 'http://satdat.ngdc.noaa.gov/sem/goes/data/new_avg/{y}/{m:02}/goes15/csv/'.format(y=t0.year, m=t0.month) + fn
-        cmd('wget ' + url + ' -O ' + localpath)
+        resp = urllib.urlopen(url)
+        with open(localpath,'w') as fp:
+            fp.write(resp.read())
     if not(os.path.exists(localpath)):
         return None
 
@@ -65,11 +70,12 @@ def goes(t0):
             t = time.Time(ws[0]).datetime
             goes_raw_data[t] = float(ws[6])
 
-    return goes(t)
+    return get_goes_flux(t)
 
 goes_max_epoch = time.Time("2000-01-01 00:00:00").datetime
 
-def goes_max(t, timedelta):
+# t から　timedeltaの時間のあいだのgoes X線フラックスの最大値を返します。
+def get_goes_max(t, timedelta):
     i = int((t - goes_max_epoch).total_seconds())
     j = int((t - goes_max_epoch + timedelta).total_seconds())
     start=min(i,j)
@@ -93,7 +99,7 @@ def goes_max_for_secondrange(delta, start ,end):
         return None
     if end-start < 60:
         t = goes_max_epoch + datetime.timedelta(seconds = (int(start)/60)*60)
-        return goes(t)
+        return get_goes_flux(t)
     if key in goes_max_for_secondrange_memo:
         return goes_max_for_secondrange_memo[key]
 
