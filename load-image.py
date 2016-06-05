@@ -17,7 +17,9 @@ img=Image.open("PetImages/Cat/0.jpg").convert('RGB')
 img =np.asarray(img).astype(np.float32).transpose(2, 0, 1)
 
 # 画像データの中身や、配列の寸法を表示します
+print "がぞうだよ"
 print img
+print "画像のサイズだよ"
 print img.shape
 print img[0].shape
 
@@ -34,12 +36,12 @@ write_image('test-normal-cat.jpg', img)
 
 # 元々の画像の赤色を2倍にした画像を作ります
 red_img = 1.0 * img
-red_img[0, :, :] =  np.minimum(255, 2.0 * img[0] )
+red_img[0, :, :] =  np.minimum(255, 0.5 * img[0] )
 write_image('test-red-cat.jpg', red_img)
 
 # 元々の画像の緑色を2倍にした画像を作ります
 green_img = 1.0 * img
-green_img[1, :, :] =  np.minimum(255, 2.0 * img[1] )
+green_img[1, :, :] = np.minimum(255, 2.0 * img[1] )
 write_image('test-green-cat.jpg', green_img)
 
 # 左上が暗い画像をつくります
@@ -48,11 +50,11 @@ n_color, n_y, n_x = img.shape
 for c in range(n_color):
     for y in range(n_y):
         for x in range(n_x):
-            if x < 300 and y < 200:
-                halfdark_img[c, y, x] = halfdark_img[c, y, x] /2
+            if x > 300 and y > 200:
+                halfdark_img[c, y, x] = 128#halfdark_img[c, y, x] /2
 write_image('test-halfdark-cat.jpg', halfdark_img)
 
 # 猫のプライバシーに配慮した画像を作ります
 privacy_img = 1.0 * img
-privacy_img[:, 150:170, 150:220] = 0
+privacy_img[:, 100:250, 100:350] = 0
 write_image('test-privacy-cat.jpg', privacy_img)
