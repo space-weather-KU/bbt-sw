@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import astropy.time as time
-import calendar, datetime, os, subprocess,urllib
+import calendar, datetime, os, subprocess,urllib, sys, StringIO
+import numpy as np
 from astropy.io import fits
 
 
