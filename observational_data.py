@@ -2,9 +2,31 @@
 # -*- coding: utf-8 -*-
 
 import astropy.time as time
-import calendar, datetime, os, subprocess,urllib, sys, StringIO
+import calendar, datetime, os, requests, subprocess,urllib, sys, StringIO
 import numpy as np
 from astropy.io import fits
+
+# 時刻tにおける太陽磁場画像を取得します
+# SDO衛星が撮影した元データは http://sdo.gsfc.nasa.gov/data/hmi/ にあります。
+def get_hmi_image(t):
+    try:
+        url2 = 'http://jsoc2.stanford.edu/data/hmi/fits/{:04}/{:02}/{:02}/hmi.M_720s_nrt.{:04}{:02}{:02}_{:02}{:02}00_TAI.fits'.format(t.year, t.month, t.day, t.year, t.month, t.day, t.hour, t.minute)
+        url = 'http://jsoc2.stanford.edu/data/hmi/fits/{:04}/{:02}/{:02}/hmi.M_720s.{:04}{:02}{:02}_{:02}{:02}00_TAI.fits'.format(t.year, t.month, t.day, t.year, t.month, t.day, t.hour, t.minute)
+
+        resp = requests.get(url)
+        if resp.status_code != 200:
+            resp = requests.get(url2)
+        strio = StringIO.StringIO(resp.content)
+
+        hdulist=fits.open(strio)
+        hdulist.verify('fix')
+        img=hdulist[1].data
+        img = np.where( np.isnan(img), 0.0, img)
+
+        return img
+    except Exception as e:
+        sys.stderr.write(e.message)
+        return None
 
 
 # 時刻tにおける、波長wavelengthの太陽画像を取得します

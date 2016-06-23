@@ -20,7 +20,7 @@ img = get_aia_image(304, t)
 print np.max(img)
 print np.min(img)
 
-img = np.minimum(1, (np.maximum(1, img)) / (500.0))
+img = np.minimum(1, np.log(np.maximum(1, img / (50.0))))
 
 
 
