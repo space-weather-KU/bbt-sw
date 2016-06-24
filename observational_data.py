@@ -25,18 +25,21 @@ def get_hmi_image(t):
 
         return img
     except Exception as e:
-        sys.stderr.write(e.message)
+        sys.stderr.write(str(e.message))
         return None
 
 
 # 時刻tにおける、波長wavelengthの太陽画像を取得します
-# SDO衛星が撮影した元データは http://sdo.gsfc.nasa.gov/data/ にあります。
+# SDO衛星が撮影した元データは http://sdo.gsfc.nasa.gov/data/aia/ にあります。
 def get_aia_image(wavelength,t):
     try:
         url = 'http://jsoc2.stanford.edu/data/aia/synoptic/{:04}/{:02}/{:02}/H{:02}00/AIA{:04}{:02}{:02}_{:02}{:02}_{:04}.fits'.format(t.year, t.month, t.day,t.hour, t.year, t.month, t.day, t.hour, t.minute, wavelength)
+        url2 = 'http://jsoc2.stanford.edu/data/aia/synoptic/nrt/{:04}/{:02}/{:02}/H{:02}00/AIA{:04}{:02}{:02}_{:02}{:02}_{:04}.fits'.format(t.year, t.month, t.day,t.hour, t.year, t.month, t.day, t.hour, t.minute, wavelength)
 
-        resp = urllib.urlopen(url)
-        strio = StringIO.StringIO(resp.read())
+        resp = requests.get(url)
+        if resp.status_code != 200:
+            resp = requests.get(url2)
+        strio = StringIO.StringIO(resp.content)
 
         hdulist=fits.open(strio)
         hdulist.verify('fix')
@@ -49,7 +52,7 @@ def get_aia_image(wavelength,t):
 
         return img / exptime
     except Exception as e:
-        sys.stderr.write(e.message)
+        sys.stderr.write(str(e.message))
         return None
 
 
