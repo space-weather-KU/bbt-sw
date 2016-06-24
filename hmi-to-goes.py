@@ -156,7 +156,7 @@ def visualize_log():
     pylab.rcParams['figure.figsize'] = (6.4,6.4)
     pylab.gca().set_xscale('log')
     pylab.gca().set_yscale('log')
-    pylab.plot(predicts,observes, color=(1,0,0), zorder = 100,marker='.',linestyle='.',markersize=0.25)
+    pylab.plot(predicts,observes, color=(1,0,0), zorder = 100,marker='.',linestyle='.',markersize=1)
     pylab.plot(predicts[-100:],observes[-100:], color=(1,0,0), zorder = 200,marker='o',markersize=5,linestyle='.')
     pylab.plot(predicts[-10:],observes[-10:], color=(1,0,0), zorder = 300,marker='o',markersize=10,linestyle='.')
 
