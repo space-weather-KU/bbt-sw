@@ -34,17 +34,20 @@ def get_hmi_image(t):
 def get_aia_image(wavelength,t):
     try:
         url = 'http://jsoc2.stanford.edu/data/aia/synoptic/{:04}/{:02}/{:02}/H{:02}00/AIA{:04}{:02}{:02}_{:02}{:02}_{:04}.fits'.format(t.year, t.month, t.day,t.hour, t.year, t.month, t.day, t.hour, t.minute, wavelength)
-        url2 = 'http://jsoc2.stanford.edu/data/aia/synoptic/nrt/{:04}/{:02}/{:02}/H{:02}00/AIA{:04}{:02}{:02}_{:02}{:02}_{:04}.fits'.format(t.year, t.month, t.day,t.hour, t.year, t.month, t.day, t.hour, t.minute, wavelength)
+        url2 = 'http://jsoc2.stanford.edu/data/aia/synoptic/nrt/{:04}/{:02}/{:02}/H{:02}00/AIA{:04}{:02}{:02}_{:02}{:02}00_{:04}.fits'.format(t.year, t.month, t.day,t.hour, t.year, t.month, t.day, t.hour, t.minute, wavelength)
 
         resp = requests.get(url)
+        idx = 1
         if resp.status_code != 200:
+            print url2
             resp = requests.get(url2)
+            idx=0
         strio = StringIO.StringIO(resp.content)
 
         hdulist=fits.open(strio)
         hdulist.verify('fix')
-        img=hdulist[1].data
-        exptime=hdulist[1].header['EXPTIME']
+        img=hdulist[idx].data
+        exptime=hdulist[idx].header['EXPTIME']
         if (exptime<=0):
             sys.stderr.write("non-positive EXPTIME\n")
             return None
