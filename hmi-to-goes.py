@@ -69,7 +69,7 @@ class Predictor(chainer.Chain):
         h = F.leaky_relu(self.l5(h))
         h = F.leaky_relu(self.l6(h))
         h = F.leaky_relu(self.l7(h))
-        return F.exp(self.l9(h)-16.0)
+        return F.exp(self.l9(h)-13.0)
 
 ################################################################
 # メインプログラム開始
@@ -77,7 +77,7 @@ class Predictor(chainer.Chain):
 
 # ニューラルネットワークによるモデルと、モデルの最適化機を作ります
 model = Predictor()
-optimizer = optimizers.Adam(alpha = 0.0001)
+optimizer = optimizers.Adam(alpha = 0.001)
 optimizer.setup(model)
 
 # セーブファイルが存在する場合は、セーブファイルから状態を読み込みます
