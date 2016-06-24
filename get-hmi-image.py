@@ -36,7 +36,7 @@ print "span after scaling; ", np.min(img), np.max(img)
 # (vmin=-1,vmax=1)で値域を指定します。
 pylab.rcParams['figure.figsize'] = (6.4,6.4)
 pylab.clf()
-pylab.imshow(img3, vmin=-1, vmax=1)
+pylab.imshow(img, vmin=-1, vmax=1)
 pylab.savefig('test-hmi.png')
 
 

@@ -11,8 +11,8 @@ from astropy.io import fits
 from observational_data import *
 
 # 2011年1月1日、00:00に相当するdatetime型の値を作ります。
-#t = datetime.datetime(2011,1,1,0,0)
-t = datetime.datetime(2016,5,23,23,0)
+t = datetime.datetime(2011,1,1,0,0)
+
 print t
 
 # 画像データを取得します
