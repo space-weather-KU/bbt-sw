@@ -177,7 +177,7 @@ def learn():
         p.goes_lightcurve_y = []
         t2 = t - datetime.timedelta(days=1)
         while t2 < t + datetime.timedelta(days=2):
-            x2 = get_goes_flux(t2)
+            x2 = max(1e-8,get_goes_flux(t2))
             if x2 is not None:
                 p.goes_lightcurve_t.append(t2)
                 p.goes_lightcurve_y.append(x2)
