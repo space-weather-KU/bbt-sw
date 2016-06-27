@@ -195,8 +195,8 @@ def learn():
     for i in range(batchsize):
         batch[i].goes_max_predict = predict[i,0]
 
-    #for i in range(batchsize):
-    #    batch[i].visualize('{}/{:02}'.format(workdir,i))
+    for i in range(batchsize):
+        batch[i].visualize('{}/{:02}'.format(workdir,i))
 
     observe = np.ndarray((batchsize,1), dtype=np.float32)
     for i in range(batchsize):
@@ -212,9 +212,10 @@ def learn():
         for p in batch:
             fp.write(' '.join([p.time.strftime("%Y-%m-%dT%H:%M"),str(p.goes_max_predict),str(p.goes_max),"\n"]))
 
-for epoch in range(10000):
+epoch = 0
+while True:
+    epoch += 1
     print epoch
     learn()
-    if epoch % 100 == 0:
-        save()
-        visualize_log()
+    save()
+    visualize_log()
