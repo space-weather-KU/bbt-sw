@@ -1,3 +1,8 @@
+# 2016-06-27
+
+GOES観測データ　１時間おきにサンプルしたもの
+https://github.com/space-weather-KU/bbt-sw-samples/blob/master/goes-data-1hr.txt?raw=true
+
 # このチュートリアル以外の資料
 
 Pythonの練習 -> https://github.com/space-weather-KU/bbt-sw/blob/master/python-cheatsheet.md
@@ -24,6 +29,7 @@ Pythonの教科書は色々ありますし、Web上の資料も充実してい�
     - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
 - Unix系
     - 各ディストリビューションのパッケージマネージャ等を使ってください。
+    - Anacondaがおすすめです。　https://docs.continuum.io/anaconda/install#linux-install
 
 ### Chainerと必要なライブラリのセットアップ
 まずは、上記手順を参考に, python, pipをインストールしてください。そして、
