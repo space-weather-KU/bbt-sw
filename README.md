@@ -1,6 +1,7 @@
 # 2016-06-27
 
-GOES観測データ　１時間お気にサンプルしたもの https://github.com/space-weather-KU/bbt-sw-samples/blob/master/goes-data-1hr.txt
+GOES観測データ　１時間おきにサンプルしたもの
+https://github.com/space-weather-KU/bbt-sw-samples/blob/master/goes-data-1hr.txt?raw=true
 
 # このチュートリアル以外の資料
 
