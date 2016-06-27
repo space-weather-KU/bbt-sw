@@ -104,7 +104,7 @@ class InOutPair:
             input_t.append(self.past_lightcurve_t[i]+datetime.timedelta(hours=1))
             input_y.append(self.past_lightcurve_y[i])
 
-
+        pylab.plot(input_t, input_y, 'g', zorder=400)
 
         predict_t = [self.time, self.time+datetime.timedelta(days=1)]
         predict_y = [self.goes_max_predict, self.goes_max_predict]
