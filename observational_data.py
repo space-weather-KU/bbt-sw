@@ -61,6 +61,37 @@ def get_aia_image(wavelength,t):
         return None
 
 
+global goes_raw_data_fast
+goes_raw_data_fast = None
+# 時刻t0におけるgoes X線フラックスの値を返します。
+# １時間ごとの精度しかありませんが、高速です
+def get_goes_flux_fast(t0):
+    global goes_raw_data_fast
+    if goes_raw_data_fast is None:
+        goes_raw_data_fast = {}
+        with open("goes-data-1hr.txt","r") as fp:
+            for l in iter(fp.readline, ''):
+                ws = l.split()
+                t = datetime.datetime.strptime(ws[0],"%Y-%m-%dT%H:%M")
+                x = float(ws[1])
+                goes_raw_data_fast[t] = x
+    t=datetime.datetime(t0.year,t0.month,t0.day,t0.hour)
+    if t in goes_raw_data_fast:
+        return goes_raw_data_fast[t]
+    return 1e-8
+
+# 時刻t0におけるgoes X線フラックスの値を返します。
+# １時間ごとの精度しかありませんが、高速です
+def get_goes_max_fast(t, timedelta):
+    ret = get_goes_flux_fast(t)
+    dt = datetime.timedelta(0)
+    while dt <= timedelta:
+        ret = max(ret, get_goes_flux_fast(t + dt))
+        dt += datetime.timedelta(hours = 1)
+    return ret
+
+
+
 global goes_raw_data, goes_loaded_files
 goes_raw_data = {}
 goes_loaded_files = set()

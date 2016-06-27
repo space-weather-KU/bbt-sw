@@ -158,14 +158,14 @@ def learn():
         # 時刻、画像、GOESライトカーブなどの情報を持ったInOutPairを作ります。
         p = InOutPair()
         p.time = t
-        p.goes_max = max(1e-8, get_goes_max(t, datetime.timedelta(days=1)))
+        p.goes_max = max(1e-8, get_goes_max_fast(t, datetime.timedelta(days=1)))
 
         # 予測に使う、GOESの過去３日ぶん、１時間おきのライトカーブを作ります
         p.past_lightcurve_t = []
         p.past_lightcurve_y = []
         t2 = t - datetime.timedelta(days=3)
         while t2 <= t - datetime.timedelta(hours=1):
-            x2 = max(1e-8,get_goes_max(t2, datetime.timedelta(hours=1)))
+            x2 = max(1e-8,get_goes_max_fast(t2, datetime.timedelta(hours=1)))
             if x2 is not None:
                 p.past_lightcurve_t.append(t2)
                 p.past_lightcurve_y.append(x2)
@@ -177,7 +177,7 @@ def learn():
         p.goes_lightcurve_y = []
         t2 = t - datetime.timedelta(days=1)
         while t2 < t + datetime.timedelta(days=2):
-            x2 = max(1e-8,get_goes_flux(t2))
+            x2 = max(1e-8,get_goes_flux_fast(t2))
             if x2 is not None:
                 p.goes_lightcurve_t.append(t2)
                 p.goes_lightcurve_y.append(x2)
@@ -195,8 +195,8 @@ def learn():
     for i in range(batchsize):
         batch[i].goes_max_predict = predict[i,0]
 
-    for i in range(batchsize):
-        batch[i].visualize('{}/{:02}'.format(workdir,i))
+    #for i in range(batchsize):
+    #    batch[i].visualize('{}/{:02}'.format(workdir,i))
 
     observe = np.ndarray((batchsize,1), dtype=np.float32)
     for i in range(batchsize):
@@ -211,8 +211,10 @@ def learn():
     with open(workdir + '/learn-log.txt','a') as fp:
         for p in batch:
             fp.write(' '.join([p.time.strftime("%Y-%m-%dT%H:%M"),str(p.goes_max_predict),str(p.goes_max),"\n"]))
-    save()
-    visualize_log()
 
-while True:
+for epoch in range(10000):
+    print epoch
     learn()
+    if epoch % 100 == 0:
+        save()
+        visualize_log()
