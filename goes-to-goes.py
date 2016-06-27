@@ -137,9 +137,10 @@ def visualize_log():
     pylab.rcParams['figure.figsize'] = (6.4,6.4)
     pylab.gca().set_xscale('log')
     pylab.gca().set_yscale('log')
-    pylab.plot(predicts,observes, color=(1,0,0), zorder = 100,marker='.',linestyle='.',markersize=1)
-    pylab.plot(predicts[-100:],observes[-100:], color=(1,0,0), zorder = 200,marker='o',markersize=5,linestyle='.')
-    pylab.plot(predicts[-10:],observes[-10:], color=(1,0,0), zorder = 300,marker='o',markersize=10,linestyle='.')
+
+    pylab.scatter(predicts,observes, color=(1,0,0), zorder = 100,marker='.',s=1)
+    pylab.scatter(predicts[-100:],observes[-100:], color=(1,0,0), zorder = 200,marker='o',s=5)
+    pylab.scatter(predicts[-10:],observes[-10:], color=(1,0,0), zorder = 300,marker='o',s=10)
 
     pylab.gca().set_xlabel('prediction')
     pylab.gca().set_ylabel('observation')
@@ -158,14 +159,14 @@ def learn():
         # 時刻、画像、GOESライトカーブなどの情報を持ったInOutPairを作ります。
         p = InOutPair()
         p.time = t
-        p.goes_max = max(1e-8, get_goes_max_fast(t, datetime.timedelta(days=1)))
+        p.goes_max = max(1e-8, get_goes_max(t, datetime.timedelta(days=1)))
 
         # 予測に使う、GOESの過去３日ぶん、１時間おきのライトカーブを作ります
         p.past_lightcurve_t = []
         p.past_lightcurve_y = []
         t2 = t - datetime.timedelta(days=3)
         while t2 <= t - datetime.timedelta(hours=1):
-            x2 = max(1e-8,get_goes_max_fast(t2, datetime.timedelta(hours=1)))
+            x2 = max(1e-8,get_goes_max(t2, datetime.timedelta(hours=1)))
             if x2 is not None:
                 p.past_lightcurve_t.append(t2)
                 p.past_lightcurve_y.append(x2)
@@ -177,7 +178,7 @@ def learn():
         p.goes_lightcurve_y = []
         t2 = t - datetime.timedelta(days=1)
         while t2 < t + datetime.timedelta(days=2):
-            x2 = max(1e-8,get_goes_flux_fast(t2))
+            x2 = max(1e-8,get_goes_flux(t2))
             if x2 is not None:
                 p.goes_lightcurve_t.append(t2)
                 p.goes_lightcurve_y.append(x2)
@@ -204,7 +205,8 @@ def learn():
     observe_v = chainer.Variable(observe)
 
     def square_norm(x,y):
-        return F.sum((F.log(x)-F.log(y))**2)/batchsize
+        #return F.sum((F.log(x)-F.log(y))**2)/batchsize
+        return F.sum((x-y)**2 * 1e12)
 
     optimizer.update(square_norm, predict_v, observe_v)
 
