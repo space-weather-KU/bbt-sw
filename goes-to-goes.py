@@ -181,7 +181,7 @@ def learn():
             if x2 is not None:
                 p.goes_lightcurve_t.append(t2)
                 p.goes_lightcurve_y.append(x2)
-            t2 += datetime.timedelta(minutes=1)
+            t2 += datetime.timedelta(minutes=10)
 
         batch.append(p)
 
@@ -215,7 +215,4 @@ def learn():
     visualize_log()
 
 while True:
-    try:
-        learn()
-    except Exception as e:
-        print str(e.message)
+    learn()
