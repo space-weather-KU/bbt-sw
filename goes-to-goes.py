@@ -152,7 +152,7 @@ def learn():
     batch = []
     while len(batch) < batchsize:
         # 2011年初頭から5年間のあいだでランダムな時刻tを生成します
-        step = random.randrange(5*365*24)
+        step = random.randrange(0.05*365*24)
         t = datetime.datetime(2011,1,1,0,0) + datetime.timedelta(hours=step)
 
         # 時刻、画像、GOESライトカーブなどの情報を持ったInOutPairを作ります。
@@ -164,7 +164,7 @@ def learn():
         p.past_lightcurve_t = []
         p.past_lightcurve_y = []
         t2 = t - datetime.timedelta(days=3)
-        while t2 < t - datetime.timedelta(hours=1):
+        while t2 <= t - datetime.timedelta(hours=1):
             x2 = max(1e-8,get_goes_max(t2, datetime.timedelta(hours=1)))
             if x2 is not None:
                 p.past_lightcurve_t.append(t2)
