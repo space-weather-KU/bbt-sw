@@ -24,6 +24,7 @@ Pythonの教科書は色々ありますし、Web上の資料も充実してい�
     - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
 - Unix系
     - 各ディストリビューションのパッケージマネージャ等を使ってください。
+    - Anacondaがおすすめです。　https://docs.continuum.io/anaconda/install#linux-install
 
 ### Chainerと必要なライブラリのセットアップ
 まずは、上記手順を参考に, python, pipをインストールしてください。そして、
