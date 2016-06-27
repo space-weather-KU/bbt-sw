@@ -125,7 +125,7 @@ def visualize_log():
     logs = []
     predicts = []
     observes = []
-    with open(workdir + '/log.txt','r') as fp:
+    with open(workdir + '/learn-log.txt','r') as fp:
         for l in iter(fp.readline, ''):
             ws = l.split()
             t = datetime.datetime.strptime(ws[0],"%Y-%m-%dT%H:%M")
@@ -208,7 +208,7 @@ def learn():
 
     optimizer.update(square_norm, predict_v, observe_v)
 
-    with open(workdir + '/log.txt','a') as fp:
+    with open(workdir + '/learn-log.txt','a') as fp:
         for p in batch:
             fp.write(' '.join([p.time.strftime("%Y-%m-%dT%H:%M"),str(p.goes_max_predict),str(p.goes_max),"\n"]))
     save()
