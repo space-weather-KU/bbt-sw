@@ -230,4 +230,4 @@ for epoch in range(5*365):
         save()
         visualize_log()
 
-print total_error / (5*365)
+print "average error: ", total_error / (5*365)
