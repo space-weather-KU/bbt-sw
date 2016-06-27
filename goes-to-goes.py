@@ -165,7 +165,7 @@ def learn():
         p.past_lightcurve_y = []
         t2 = t - datetime.timedelta(days=3)
         while t2 < t - datetime.timedelta(hours=1):
-            x2 = maximum(1e-8,get_goes_max(t2, datetime.timedelta(hours=1)))
+            x2 = max(1e-8,get_goes_max(t2, datetime.timedelta(hours=1)))
             if x2 is not None:
                 p.past_lightcurve_t.append(t2)
                 p.past_lightcurve_y.append(x2)
