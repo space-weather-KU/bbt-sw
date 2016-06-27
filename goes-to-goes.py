@@ -60,7 +60,7 @@ class Predictor(chainer.Chain):
 
 # ニューラルネットワークによるモデルと、モデルの最適化機を作ります
 model = Predictor()
-optimizer = optimizers.Adam(alpha = 0.001)
+optimizer = optimizers.Adam(alpha = 0.0001)
 optimizer.setup(model)
 
 # セーブファイルが存在する場合は、セーブファイルから状態を読み込みます
@@ -204,7 +204,7 @@ def learn():
     observe_v = chainer.Variable(observe)
 
     def square_norm(x,y):
-        return F.sum((F.log(x)-F.log(y))**2)
+        return F.sum((F.log(x)-F.log(y))**2)/batchsize
 
     optimizer.update(square_norm, predict_v, observe_v)
 
