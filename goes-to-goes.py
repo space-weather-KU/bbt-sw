@@ -204,7 +204,7 @@ def learn():
     observe_v = chainer.Variable(observe)
 
     def square_norm(x,y):
-        return F.sum((x-y)**2)
+        return F.sum((F.log(x)-F.log(y))**2)
 
     optimizer.update(square_norm, predict_v, observe_v)
 
