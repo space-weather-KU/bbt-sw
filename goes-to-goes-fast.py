@@ -26,6 +26,10 @@ batchsize = 10
 input_size = 72
 
 workdir = 'goes-to-goes'
+
+# For Hattori
+global epoch
+
 try:
     os.mkdir(workdir)
 except Exception as e:
@@ -76,7 +80,6 @@ def save():
     print('save the optimizer')
     serializers.save_npz(state_filename, optimizer)
     print('saved.')
-
 
 
 
@@ -181,7 +184,7 @@ def learn():
             if x2 is not None:
                 p.goes_lightcurve_t.append(t2)
                 p.goes_lightcurve_y.append(x2)
-            t2 += datetime.timedelta(minutes=10)
+            t2 += datetime.timedelta(minutes=12)
 
         batch.append(p)
 
@@ -212,7 +215,8 @@ def learn():
         for p in batch:
             fp.write(' '.join([p.time.strftime("%Y-%m-%dT%H:%M"),str(p.goes_max_predict),str(p.goes_max),"\n"]))
 
-for epoch in range(10000):
+
+for epoch in range(5*365):
     print epoch
     learn()
     if epoch % 100 == 0:
