@@ -151,7 +151,11 @@ def visualize_log():
     pylab.close('all')
 
 
+global total_error
+total_error = 0
+
 def learn():
+    global total_error
     batch = []
     while len(batch) < batchsize:
         # 2011年初頭から5年間のあいだでランダムな時刻tを生成します
@@ -211,9 +215,12 @@ def learn():
 
     optimizer.update(square_norm, predict_v, observe_v)
 
+    total_error += square_norm(predict_v, observe_v).data
+
     with open(workdir + '/learn-log.txt','a') as fp:
         for p in batch:
             fp.write(' '.join([p.time.strftime("%Y-%m-%dT%H:%M"),str(p.goes_max_predict),str(p.goes_max),"\n"]))
+
 
 
 for epoch in range(5*365):
@@ -222,3 +229,5 @@ for epoch in range(5*365):
     if epoch % 100 == 0:
         save()
         visualize_log()
+
+print total_error / (5*365)
