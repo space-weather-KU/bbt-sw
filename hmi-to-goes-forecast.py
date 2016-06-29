@@ -25,7 +25,7 @@ from chainer import serializers
 learning_batchsize = 10
 learning_image_size = 256
 
-initial_learn_count = 100
+initial_learn_count = 2
 predict_count = 365 * 24 * 4
 learn_per_step = 1
 global current_hour
@@ -257,7 +257,7 @@ for i in range(initial_learn_count):
 
     if i % 100 == 0:
         save()
-        visualize_log()
+        #visualize_log()
 
 
 #時間を1時間づつ進めながら、予報実験をしていきます。
@@ -273,3 +273,4 @@ for t in range(predict_count):
             predict(learn_mode = True)
         except Exception as e:
             print str(e.message)
+    current_hour += 1
