@@ -25,7 +25,7 @@ from chainer import serializers
 learning_batchsize = 10
 learning_image_size = 256
 
-initial_learn_count = 2
+initial_learn_count = 10000
 predict_count = 365 * 24 * 4
 learn_per_step = 1
 global current_hour
