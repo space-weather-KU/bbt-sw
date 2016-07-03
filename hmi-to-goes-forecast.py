@@ -244,6 +244,10 @@ def predict(learn_mode = True):
 
         optimizer.update(square_norm, predict_v, observe_v)
 
+        # 何を学習しているかを可視化します。
+        for i in range(batchsize):
+            batch[i].visualize('{}/{:02}'.format(workdir,i))
+
     else:
         # 予報モードの場合、予報結果と正解を記録します。
         with open(workdir + '/prediction-log.txt','a') as fp:
