@@ -7,6 +7,8 @@ import numpy as np
 from astropy.io import fits
 
 global data_path
+data_path = None
+
 def set_data_path(data_path_0):
     global data_path
     data_path = data_path_0
