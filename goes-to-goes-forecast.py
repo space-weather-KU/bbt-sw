@@ -33,7 +33,7 @@ global current_hour
 current_hour = 365 * 24
 
 
-workdir = 'goes-to-goes'
+workdir = 'goes-to-goes-forecast'
 
 # For Hattori
 global epoch
