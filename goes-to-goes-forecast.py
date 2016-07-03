@@ -22,8 +22,16 @@ from chainer import optimizers
 from chainer import serializers
 
 # パラメータ群
-batchsize = 10
+training_batchsize = 10
 input_size = 72
+
+initial_learn_count = 10000
+predict_count = 365 * 4
+predict_step_hour = 24
+learn_per_predict = 1
+global current_hour
+current_hour = 365 * 24
+
 
 workdir = 'goes-to-goes'
 
@@ -151,17 +159,24 @@ def visualize_log():
     pylab.close('all')
 
 
-global total_error
+global total_error, total_prediction_count
 total_error = 0
+total_prediction_count = 0
 
-def learn():
+def predict(training_mode = True):
     global total_error
     batch = []
+    batchsize = training_batchsize if training_mode else 1
     while len(batch) < batchsize:
-        # 2011年初頭から5年間のあいだでランダムな時刻tを生成します
-        step = random.randrange(5*365*24)
-        t = datetime.datetime(2011,1,1,0,0) + datetime.timedelta(hours=step)
-        #step = step + 1
+        if training_mode:
+            # 学習モードの場合
+            # 2011年初頭からcurrent_hour - 24のあいだでランダムな時刻tを生成します
+            step = random.randrange(current_hour - 24)
+            t = datetime.datetime(2011,1,1,0,0) + datetime.timedelta(hours=step)
+        else:
+            # 予測モードの場合
+            # 対象時刻はcurrent_hourです
+            t = datetime.datetime(2011,1,1,0,0) + datetime.timedelta(hours=current_hour)
 
 
         # 時刻、画像、GOESライトカーブなどの情報を持ったInOutPairを作ります。
@@ -215,21 +230,49 @@ def learn():
     def square_norm(x,y):
         return F.sum((F.log(x)-F.log(y))**2)/batchsize
 
-    optimizer.update(square_norm, predict_v, observe_v)
+    if training_mode:
+        # 訓練モードの場合、正解とのずれを学習します
+        optimizer.update(square_norm, predict_v, observe_v)
+    else:
+        # 予報モードの場合、予報結果と正解を記録します。
+        total_error += square_norm(predict_v, observe_v).data
+        total_prediction_count += 1
 
-    total_error += square_norm(predict_v, observe_v).data
-
-    with open(workdir + '/learn-log.txt','a') as fp:
-        for p in batch:
-            fp.write(' '.join([p.time.strftime("%Y-%m-%dT%H:%M"),str(p.goes_max_predict),str(p.goes_max),"\n"]))
+        with open(workdir + '/predict-log.txt','a') as fp:
+            for p in batch:
+                fp.write(' '.join([p.time.strftime("%Y-%m-%dT%H:%M"),str(p.goes_max_predict),str(p.goes_max),"\n"]))
 
 
 
-for epoch in range(5*365):
-    print epoch
-    learn()
-    if epoch % 100 == 0:
+
+
+# まず、最初の1年間で練習します
+for i in range(initial_learn_count):
+    print "learning: ", i, "/", initial_learn_count
+    try:
+        predict(training_mode = True)
+    except Exception as e:
+        print str(e.message)
+
+    if i % 100 == 0:
         save()
-        visualize_log()
+        #visualize_log()
 
-print "average error: ", total_error / (5*365)
+
+#時間をpredit_step_hour時間づつ進めながら、予報実験をしていきます。
+for t in range(predict_count):
+    print "predicting: ", t, "/", predict_count
+    try:
+        predict(training_mode = False)
+    except Exception as e:
+        print str(e.message)
+
+    for i in range(learn_per_step):
+        try:
+            predict(training_mode = True)
+        except Exception as e:
+            print str(e.message)
+    current_hour += predict_step_hour
+
+
+print "average error: ", total_error / total_prediction_count
