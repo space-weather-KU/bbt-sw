@@ -25,7 +25,7 @@ from chainer import serializers
 training_batchsize = 10
 input_size = 72
 
-initial_learn_count = 10000
+initial_learn_count = 1000
 predict_count = 365 * 4
 predict_step_hour = 24
 learn_per_predict = 1
