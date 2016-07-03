@@ -22,6 +22,11 @@ from chainer import optimizers
 from chainer import serializers
 
 # パラメータ群
+if len(sys.argv) < 2:
+    print "usage: {} data-folder-path".format(sys.argv[0])
+    exit(2)
+data_path = sys.argv[1]
+
 learning_batchsize = 10
 learning_image_size = 256
 
