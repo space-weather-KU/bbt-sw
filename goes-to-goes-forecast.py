@@ -25,7 +25,7 @@ from chainer import serializers
 training_batchsize = 10
 input_size = 72
 
-initial_learn_count = 1000
+initial_learn_count = 10 # 1000
 predict_count = 365 * 4
 predict_step_hour = 24
 learn_per_predict = 1
@@ -164,7 +164,7 @@ total_error = 0
 total_prediction_count = 0
 
 def predict(training_mode = True):
-    global total_error
+    global total_error, total_prediction_count
     batch = []
     batchsize = training_batchsize if training_mode else 1
     while len(batch) < batchsize:
@@ -267,7 +267,7 @@ for t in range(predict_count):
     except Exception as e:
         print str(e.message)
 
-    for i in range(learn_per_step):
+    for i in range(learn_per_predict):
         try:
             predict(training_mode = True)
         except Exception as e:
