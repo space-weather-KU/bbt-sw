@@ -6,10 +6,24 @@ import calendar, datetime, os, requests, subprocess,urllib, sys, StringIO
 import numpy as np
 from astropy.io import fits
 
+global data_path
+def set_data_path(data_path_0):
+    global data_path
+    data_path = data_path_0
+
 # 時刻tにおける太陽磁場画像を取得します
 # これは1024^2に縮小されたデータです。
 # SDO衛星が撮影した元データは http://sdo.gsfc.nasa.gov/data/ にあります。
 def get_hmi_image(t):
+    global data_path
+    if data_path is not None:
+        fn = data_path + t.strftime('/hmi/%Y/%m/%d/%H%M.npz').replace('/',os.sep)
+        try:
+            return np.load(fn)['img']
+        except:
+            return None
+
+
     try:
         url2 = 'http://jsoc2.stanford.edu/data/hmi/fits/{:04}/{:02}/{:02}/hmi.M_720s_nrt.{:04}{:02}{:02}_{:02}{:02}00_TAI.fits'.format(t.year, t.month, t.day, t.year, t.month, t.day, t.hour, t.minute)
         url = 'http://jsoc2.stanford.edu/data/hmi/fits/{:04}/{:02}/{:02}/hmi.M_720s.{:04}{:02}{:02}_{:02}{:02}00_TAI.fits'.format(t.year, t.month, t.day, t.year, t.month, t.day, t.hour, t.minute)
@@ -98,13 +112,13 @@ goes_loaded_files = set()
 
 # 時刻t0におけるgoes X線フラックスの値を返します。
 def get_goes_flux(t0):
-    global goes_raw_data, goes_loaded_files
+    global goes_raw_data, goes_loaded_files, data_path
     if t0 in goes_raw_data:
         return goes_raw_data[t0]
 
     day31 = calendar.monthrange(t0.year,t0.month)[1]
     fn = 'g15_xrs_1m_{y:4}{m:02}{d:02}_{y:4}{m:02}{d31:02}.csv'.format(y=t0.year, m=t0.month, d=01, d31=day31)
-    localpath = os.path.join('data' , fn)
+    localpath = os.path.join(data_path , fn)
     if localpath in goes_loaded_files:
         return None
 

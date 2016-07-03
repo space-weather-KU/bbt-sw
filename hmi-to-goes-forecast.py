@@ -25,7 +25,7 @@ from chainer import serializers
 if len(sys.argv) < 2:
     print "usage: {} data-folder-path".format(sys.argv[0])
     exit(2)
-data_path = sys.argv[1]
+set_data_path(sys.argv[1])
 
 learning_batchsize = 10
 learning_image_size = 256
@@ -206,13 +206,13 @@ def predict(learn_mode = True):
         p = InOutPair()
         p.time = t
         p.hmi_img = img
-        p.goes_max = max(1e-8, get_goes_max(t, datetime.timedelta(days=1)))
+        p.goes_max = max(1e-8, get_goes_max(t, datetime.timedelta(days=1), data_path = data_path))
 
         p.goes_lightcurve_t = []
         p.goes_lightcurve_y = []
         t2 = t - datetime.timedelta(days=1)
         while t2 < t + datetime.timedelta(days=2):
-            x2 = get_goes_flux(t2)
+            x2 = get_goes_flux(t2, data_path = data_path)
             if x2 is not None:
                 p.goes_lightcurve_t.append(t2)
                 p.goes_lightcurve_y.append(x2)
