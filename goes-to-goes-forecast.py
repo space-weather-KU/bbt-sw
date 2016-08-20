@@ -23,14 +23,16 @@ from chainer import serializers
 
 # パラメータ群
 training_batchsize = 10
-input_size = 72
 
+input_days = 6 # 予測に使う日数
 initial_learn_count = 1000
 predict_count = 365 * 4
 predict_step_hour = 24
 learn_per_predict = 1
 global current_hour
 current_hour = 365 * 24
+
+input_size = 24 * input_days
 
 
 workdir = 'goes-to-goes-forecast'
@@ -187,7 +189,7 @@ def predict(training_mode = True):
         # 予測に使う、GOESの過去３日ぶん、１時間おきのライトカーブを作ります
         p.past_lightcurve_t = []
         p.past_lightcurve_y = []
-        t2 = t - datetime.timedelta(days=3)
+        t2 = t - datetime.timedelta(days=input_days)
         while t2 <= t - datetime.timedelta(hours=1):
             x2 = max(1e-8,get_goes_max_fast(t2, datetime.timedelta(hours=1)))
             if x2 is not None:
@@ -249,10 +251,7 @@ def predict(training_mode = True):
 # まず、最初の1年間で練習します
 for i in range(initial_learn_count):
     print "learning: ", i, "/", initial_learn_count
-    try:
-        predict(training_mode = True)
-    except Exception as e:
-        print str(e.message)
+    predict(training_mode = True)
 
     if i % 100 == 0:
         save()
@@ -262,16 +261,11 @@ for i in range(initial_learn_count):
 #時間をpredit_step_hour時間づつ進めながら、予報実験をしていきます。
 for t in range(predict_count):
     print "predicting: ", t, "/", predict_count
-    try:
-        predict(training_mode = False)
-    except Exception as e:
-        print str(e.message)
+    predict(training_mode = False)
+
 
     for i in range(learn_per_predict):
-        try:
-            predict(training_mode = True)
-        except Exception as e:
-            print str(e.message)
+        predict(training_mode = True)
     current_hour += predict_step_hour
 
 
