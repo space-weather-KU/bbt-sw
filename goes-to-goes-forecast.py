@@ -28,7 +28,7 @@ import time #hishi
 # パラメータ群
 training_batchsize = 10
 
-input_days = 2 # 予測に使う日数
+input_days = 6 # 予測に使う日数
 initial_learn_count = 1000
 predict_count = 365 * 4
 predict_step_hour = 24
