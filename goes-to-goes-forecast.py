@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# search word hishi
+
 # 太陽磁場画像を取得するサンプルプログラムです
 
 # 必要なライブラリのimport文です
@@ -21,10 +23,12 @@ import chainer.links as L
 from chainer import optimizers
 from chainer import serializers
 
+import time #hishi
+
 # パラメータ群
 training_batchsize = 10
 
-input_days = 6 # 予測に使う日数
+input_days = 2 # 予測に使う日数
 initial_learn_count = 1000
 predict_count = 365 * 4
 predict_step_hour = 24
@@ -71,6 +75,8 @@ class Predictor(chainer.Chain):
 ################################################################
 # メインプログラム開始
 ################################################################
+
+start = time.time() #hishi
 
 # ニューラルネットワークによるモデルと、モデルの最適化機を作ります
 model = Predictor()
@@ -250,23 +256,33 @@ def predict(training_mode = True):
 
 # まず、最初の1年間で練習します
 for i in range(initial_learn_count):
-    print "learning: ", i, "/", initial_learn_count
+    #print "learning: ", i, "/", initial_learn_count
     predict(training_mode = True)
-
     if i % 100 == 0:
+        print "learning: ", i, "/", initial_learn_count #hishi
         save()
         #visualize_log()
 
 
 #時間をpredit_step_hour時間づつ進めながら、予報実験をしていきます。
 for t in range(predict_count):
-    print "predicting: ", t, "/", predict_count
     predict(training_mode = False)
-
+    print "predicting: ", t, "/", predict_count # hishi
+    predict(training_mode = False)
 
     for i in range(learn_per_predict):
         predict(training_mode = True)
     current_hour += predict_step_hour
 
+    if t % 100 == 0: #hishi
+        print "predicting: ", t, "/", predict_count #hishi
+
 
 print "average error: ", total_error / total_prediction_count
+elapsed_time = time.time() - start #hishi
+print ("elapsed_time:{0}".format(elapsed_time)) + "[sec]" #hishi
+
+fpr = open(workdir + "/result.txt",'a') #hishi
+fpr.write( str(total_error / total_prediction_count) + "," ) #hishi
+fpr.write( str(elapsed_time) + ",\n" ) #hishi
+fpr.close() #hishi

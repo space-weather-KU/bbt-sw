@@ -1,13 +1,20 @@
 #!/usr/bin/env python
 
-import os,shutil
+import os,shutil,subprocess
 
-shutil.rmtree('goes-to-goes-forecast')
+experiment_dir = 'goes-to-goes-forecast'
+
+def when_path_exists(path, func):
+    if os.path.exists(path):
+        func(path)
+
+when_path_exists(experiment_dir, shutil.rmtree)
+
 for i in range(10):
     print "trial ", i
-    os.remove("goes-to-goes-forecast/model.save")
-    os.remove("goes-to-goes-forecast/state.save")
-
+    when_path_exists(os.path.join(experiment_dir,"model.save"), os.remove)
+    when_path_exists(os.path.join(experiment_dir,"state.save") ,os.remove)
+    subprocess.call(["python","goes-to-goes-forecast.py"])
 # i=1
 # while [ $i -lt 11 ]; do
 #     echo "trial $i"
