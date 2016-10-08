@@ -22,14 +22,13 @@ Pythonの教科書は色々ありますし、Web上の資料も充実してい�
 ### プログラミング言語Pythonとライブラリのインストール
 
 - Windows
-    - [Windows上にChainer等々を一番簡単に入れれる方法](http://qiita.com/okuta/items/f985b9da6de33a016a75) に従うのがおすすめです。我々はGPUは使いませんので、CUDA関係のインストールは飛ばして大丈夫です。
-    - Python for Windows インストールメモ http://www.aoki.ecei.tohoku.ac.jp/~ito/python_windows.html
-    - 坂上さんによる一連の準備手順まとめ https://github.com/space-weather-KU/bbt-sw/blob/master/setup-on-windows7.md
+    - [Anacondaをインストールする](https://www.continuum.io/downloads) のがおすすめです。
+    - Windows用　参考記事　http://qiita.com/y__sama/items/5b62d31cb7e6ed50f02c#windows%E3%81%AE%E5%A0%B4%E5%90%88
 - Mac OSX
     - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
 - Unix系
     - 各ディストリビューションのパッケージマネージャ等を使ってください。
-    - Anacondaがおすすめです。　https://docs.continuum.io/anaconda/install#linux-install
+    - LinuxにもAnacondaがおすすめです。　https://docs.continuum.io/anaconda/install#linux-install
 
 ### Chainerと必要なライブラリのセットアップ
 まずは、上記手順を参考に, python, pipをインストールしてください。そして、
