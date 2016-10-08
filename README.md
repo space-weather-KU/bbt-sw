@@ -1,7 +1,3 @@
-# 2016-06-27
-
-GOES観測データ　１時間おきにサンプルしたもの
-https://github.com/space-weather-KU/bbt-sw-samples/blob/master/goes-data-1hr.txt?raw=true
 
 # このチュートリアル以外の資料
 
@@ -21,14 +17,31 @@ Pythonの教科書は色々ありますし、Web上の資料も充実してい�
 
 ### プログラミング言語Pythonとライブラリのインストール
 
+Python2/Python3という選択肢がありますが新しいほうのPython３を使おうと思います。
+
 - Windows
     - [Anacondaをインストールする](https://www.continuum.io/downloads) のがおすすめです。
-    - Windows用　参考記事　http://qiita.com/y__sama/items/5b62d31cb7e6ed50f02c#windows%E3%81%AE%E5%A0%B4%E5%90%88
+    - [Windows用　参考記事](http://qiita.com/y__sama/items/5b62d31cb7e6ed50f02c#windows%E3%81%AE%E5%A0%B4%E5%90%88)
 - Mac OSX
     - homebrewを使うのが便利です。 http://qiita.com/zaburo/items/fbdaf6c04151671407db
+    - Anacondaを入れる場合は若干注意が必要です。こちら [Mac OSX用　参考記事](http://qiita.com/oct_itmt/items/2d066801a7464a676994)
 - Unix系
     - 各ディストリビューションのパッケージマネージャ等を使ってください。
-    - LinuxにもAnacondaがおすすめです。　https://docs.continuum.io/anaconda/install#linux-install
+    - LinuxにもAnacondaがおすすめです。　[参考記事](http://qiita.com/y__sama/items/5b62d31cb7e6ed50f02c#linux%E3%81%AE%E5%A0%B4%E5%90%88)
+
+### 太陽観測データの扱い
+
+後期は、太陽観測データを本格的に扱う必要がありますので、どのような方法が良いか調査してきました。皆様に以下の方法で行けそうか試してもらえればと思います
+。
+
+HMI Science Nuggetsの記事
+- [50. Analyzing SDO/HMI Data Using Python](http://hmi.stanford.edu/hminuggets/?p=1428)
+ここに[S1] .. [S5]としてリンクされている先は、Pythonの実行可能なメモ帳「Jupyter」のソースコードです。
+
+- ここのS3の記事 [making movies of the Sun](http://nbviewer.jupyter.org/github/mbobra/calculating-spaceweather-keywords/blob/master/movie.ipynb) が実行できて、ムービー作成まで行けるか試してください。みなさまの環境で躓くところをおしえてください。
+
+うまくいったら、Analyzing SDO/HMI Data Using Pythonの他のスクリプトや、他のHMI Science Nuggetsも試してみてください。
+
 
 ### Chainerと必要なライブラリのセットアップ
 まずは、上記手順を参考に, python, pipをインストールしてください。そして、
@@ -147,3 +160,11 @@ http://arxiv.org/pdf/1312.5602.pdf
 
 - Alpha Go
 http://www.nature.com/nature/journal/v529/n7587/pdf/nature16961.pdf
+
+## 授業で使用するデータ
+
+### 2016-06-27
+
+GOES観測データ　１時間おきにサンプルしたもの
+https://github.com/space-weather-KU/bbt-sw-samples/blob/master/goes-data-1hr.txt?raw=true
+
