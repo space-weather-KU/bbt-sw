@@ -36,12 +36,25 @@ Anacondaがあれば[Python3の環境を作ってAnaconda内から切り替え�
 後期は、太陽観測データを本格的に扱う必要がありますので、どのような方法が良いか調査してきました。皆様に以下の方法で行けそうか試してもらえればと思います
 。
 
-HMI Science Nuggetsの記事
+HMI Science Nuggetsの記事を参考にします。
 - [50. Analyzing SDO/HMI Data Using Python](http://hmi.stanford.edu/hminuggets/?p=1428)
+
 ここに[S1] .. [S5]としてリンクされている先は、Pythonの実行可能なメモ帳「Jupyter」のソースコードです。
+
 
 - ここのS3の記事 [making movies of the Sun](http://nbviewer.jupyter.org/github/mbobra/calculating-spaceweather-keywords/blob/master/movie.ipynb) が実行できて、太陽の活動領域のムービーを作成するところまで行けるか試してください。みなさまの環境で躓くところをおしえてください。
 
+Jupyterは、AnacondaやOS付属のコマンドラインから次のコマンドを入力するとインストールできます。
+
+```
+$ pip install --user jupyter
+```
+上記のサイトから`movie.ipynb`をウンロードしてきてください。そして、`movie.ipynb`の存在するフォルダに
+移動して
+```
+jupyter notebook
+```
+としてjupyterを起動してください。
 うまくいったら、Analyzing SDO/HMI Data Using Pythonの他のスクリプトや、他のHMI Science Nuggetsも試してみてください。
 
 
