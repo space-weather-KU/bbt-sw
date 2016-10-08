@@ -129,6 +129,11 @@ tama.jpg  is a  cat
 
 # 気になる論文
 
+## [NEW] 動画予測・生成系
+
+- PredNet https://arxiv.org/abs/1605.08104
+- Generating Videos with Scene Dynamics　http://web.mit.edu/vondrick/tinyvideo/
+- WaveNet (音声)　https://deepmind.com/blog/wavenet-generative-model-raw-audio/
 
 ## 画像認識系
 
