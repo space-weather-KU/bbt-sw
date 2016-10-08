@@ -17,7 +17,9 @@ Pythonの教科書は色々ありますし、Web上の資料も充実してい�
 
 ### プログラミング言語Pythonとライブラリのインストール
 
-Python2/Python3という選択肢がありますが新しいほうのPython３を使おうと思います。
+Python2/Python3という選択肢がありますが、今回参考にするHMI Science Nuggets がPython2で書かれているので当面Python2を使おうと思います。
+
+Anacondaがあれば[Python3の環境を作ってAnaconda内から切り替えられます](http://conda.pydata.org/docs/py2or3.html#create-python-2-or-3-environments)
 
 - Windows
     - [Anacondaをインストールする](https://www.continuum.io/downloads) のがおすすめです。
@@ -38,7 +40,7 @@ HMI Science Nuggetsの記事
 - [50. Analyzing SDO/HMI Data Using Python](http://hmi.stanford.edu/hminuggets/?p=1428)
 ここに[S1] .. [S5]としてリンクされている先は、Pythonの実行可能なメモ帳「Jupyter」のソースコードです。
 
-- ここのS3の記事 [making movies of the Sun](http://nbviewer.jupyter.org/github/mbobra/calculating-spaceweather-keywords/blob/master/movie.ipynb) が実行できて、ムービー作成まで行けるか試してください。みなさまの環境で躓くところをおしえてください。
+- ここのS3の記事 [making movies of the Sun](http://nbviewer.jupyter.org/github/mbobra/calculating-spaceweather-keywords/blob/master/movie.ipynb) が実行できて、太陽の活動領域のムービーを作成するところまで行けるか試してください。みなさまの環境で躓くところをおしえてください。
 
 うまくいったら、Analyzing SDO/HMI Data Using Pythonの他のスクリプトや、他のHMI Science Nuggetsも試してみてください。
 
