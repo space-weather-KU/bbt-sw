@@ -57,6 +57,17 @@ jupyter notebook
 としてjupyterを起動してください。
 うまくいったら、Analyzing SDO/HMI Data Using Pythonの他のスクリプトや、他のHMI Science Nuggetsも試してみてください。
 
+- 動画生成に必要な`ffmpeg`ライブラリはここ https://anaconda.org/menpo/ffmpeg にあるように、Anacondaからインストールできます。
+```
+conda install -c menpo ffmpeg
+```
+と入力してください。
+
+- `movie.ipynb`の最後まで行って動画は生成されるが生成した動画が再生できない場合、最後の行に`extra_args=['-vcodec','libx264']`オプションを追加するとうまくいく可能性があります。
+
+```
+ani.save(NOAA_ARS+'.mp4', savefig_kwargs=savefigdict, writer='ffmpeg_file', dpi=my_dpi,extra_args=['-vcodec','libx264'])
+```
 
 ### Chainerと必要なライブラリのセットアップ
 まずは、上記手順を参考に, python, pipをインストールしてください。そして、
