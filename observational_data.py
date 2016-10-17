@@ -129,10 +129,12 @@ def get_goes_flux(t0):
         resp = urllib.urlopen(url)
         with open(localpath,'w') as fp:
             fp.write(resp.read())
+
+    goes_loaded_files.add(localpath)
+
     if not(os.path.exists(localpath)):
         return None
 
-    goes_loaded_files.add(localpath)
     with (open(localpath, "r")) as fp:
         while True:
             con = fp.readline()
