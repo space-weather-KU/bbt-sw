@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import astropy.time as time
-import calendar, datetime, os, requests, subprocess,urllib, sys, StringIO
+import calendar, datetime, os, re, requests, subprocess,urllib, sys, StringIO
 import numpy as np
 from astropy.io import fits
 
@@ -108,13 +108,14 @@ def get_goes_max_fast(t, timedelta):
 
 
 
-global goes_raw_data, goes_loaded_files
+global goes_raw_data, goes_loaded_files, goes_future_files
 goes_raw_data = {}
 goes_loaded_files = set()
+goes_future_files = set()
 
 # 時刻t0におけるgoes X線フラックスの値を返します。
 def get_goes_flux(t0):
-    global goes_raw_data, goes_loaded_files, data_path
+    global goes_raw_data, goes_loaded_files, data_path, goes_future_files
     if t0 in goes_raw_data:
         return goes_raw_data[t0]
 
@@ -130,16 +131,21 @@ def get_goes_flux(t0):
         with open(localpath,'w') as fp:
             fp.write(resp.read())
 
+    if (localpath in goes_future_files) or not(os.path.exists(localpath)):
+        return None
     goes_loaded_files.add(localpath)
 
-    if not(os.path.exists(localpath)):
-        return None
 
+    print "open : ", localpath
     with (open(localpath, "r")) as fp:
         while True:
             con = fp.readline()
             if con[0:5]=='data:':
                 break
+            if re.search(con, 'was not found on this server'):
+                goes_future_files.add(localpath)
+                return None
+
         fp.readline()
 
         while True:
