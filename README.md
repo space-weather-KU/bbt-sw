@@ -161,6 +161,8 @@ tama.jpg  is a  cat
 - Generating Videos with Scene Dynamics　http://web.mit.edu/vondrick/tinyvideo/
 - WaveNet (音声)　https://deepmind.com/blog/wavenet-generative-model-raw-audio/
 
+- 自然言語の文章により指定された物体だけを、画像内から選ぶ http://www.eccv2016.org/files/posters/S-1A-07.pdf
+
 ## 画像認識系
 
 - ASIRRA Cat and Dog image corpus
