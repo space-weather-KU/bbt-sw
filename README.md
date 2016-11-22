@@ -160,6 +160,8 @@ tama.jpg  is a  cat
 - PredNet https://arxiv.org/abs/1605.08104
 - Generating Videos with Scene Dynamics　http://web.mit.edu/vondrick/tinyvideo/
 - WaveNet (音声)　https://deepmind.com/blog/wavenet-generative-model-raw-audio/
+- Temporal Generative Adversarial Nets https://arxiv.org/pdf/1611.06624v1.pdf
+
 
 - 自然言語の文章により指定された物体だけを、画像内から選ぶ http://www.eccv2016.org/files/posters/S-1A-07.pdf
 
