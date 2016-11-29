@@ -39,7 +39,7 @@ current_hour = 365 * 24
 input_size = 24 * input_days
 hidden_layer_size = 2 * input_size
 
-workdir = 'goes-to-goes-forecast'
+workdir = 'goes-to-goes-forecast-saikyo'
 
 # For Hattori
 global epoch

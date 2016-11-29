@@ -2,7 +2,7 @@
 
 import os,shutil,subprocess
 
-experiment_dir = 'goes-to-goes-forecast'
+experiment_dir = 'goes-to-goes-forecast-saikyo'
 
 def when_path_exists(path, func):
     if os.path.exists(path):
@@ -14,7 +14,7 @@ for i in range(10):
     print "trial ", i
     when_path_exists(os.path.join(experiment_dir,"model.save"), os.remove)
     when_path_exists(os.path.join(experiment_dir,"state.save") ,os.remove)
-    subprocess.call(["python","goes-to-goes-forecast.py"])
+    subprocess.call(["python","goes-to-goes-forecast-saikyo.py"])
 # i=1
 # while [ $i -lt 11 ]; do
 #     echo "trial $i"
