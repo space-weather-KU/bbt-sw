@@ -305,5 +305,19 @@ fpr.write( str(total_error / total_prediction_count) + "," ) #hishi
 fpr.write( str(elapsed_time) + ",\n" ) #hishi
 fpr.close() #hishi
 
-# generate contingency table
-print contingency_table
+# calculate TSS from the contingency table
+def tss(c):
+    tp = float(contingency_table[(c,True, True)])
+    fp = float(contingency_table[(c,True, False)])
+    fn = float(contingency_table[(c,False, True)])
+    tn = float(contingency_table[(c,False, False)])
+
+    return tp/(tp+fn+1e-16) - fp/(fp+tn+1e-16)
+
+
+with open(workdir + "/tss.txt",'a') as fp:
+    buf = ""
+    for c in flare_classes:
+        buf += "{} {} ".format(c,tss(c))
+    buf += "\n"
+    fp.write(buf)
